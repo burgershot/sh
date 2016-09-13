@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+<title>Шашки</title>
+<style>
+
+/********** Base styles **********/
+* {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+div {
+
+  width: 100%;
+  height: 50px;
+  
+  font-family: Helvetica;
+  color: white;
+}
+
+img {
+	pointer-events: none;
+    display: block;
+    margin: auto;
+}
+
+/* Simple Responsive Framework. */
+.row {
+  width: 50%;
+  border: 3px solid black;
+}
+
+/********** Large devices only **********/
+
+  #white {
+    float: left;
+    width: 12.5%;
+    background-color: black;
+  }
+  #black {
+    width: 12.5%;
+    float: left;
+    background-color: #808080;
+  }
+  #whiteshit {
+  	background-color: white;
+  	width: 100%;
+  	float: left;
+  	height: 500px;
+  }
+ #someshit {
+ 	width: 50%;
+ 	pointer-events: none;
+ 	float: left;
+  }
+
+</style>
+</head>
+<body>
+<h1>шааааааааааааашшшшшшшшкккккккккки</h1>
+  <div id="black" class="11"></div>
+  <div id="white" class="12"></div>
+  <div id="black" class="13"></div>
+  <div id="white" class="14"></div>
+  <div id="black" class="15"></div>
+  <div id="white" class="16"></div>
+  <div id="black" class="17"></div>
+  <div id="white" class="18"></div>
+  <div id="white" class="21"></div>
+  <div id="black" class="22"></div>
+  <div id="white" class="23"></div>
+  <div id="black" class="24"></div>
+  <div id="white" class="25"></div>
+  <div id="black" class="26"></div>
+  <div id="white" class="27"></div>
+  <div id="black" class="28"></div>
+  <div id="black" class="31"></div>
+  <div id="white" class="32"></div>
+  <div id="black" class="33"></div>
+  <div id="white" class="34"></div>
+  <div id="black" class="35"></div>
+  <div id="white" class="36"></div>
+  <div id="black" class="37"></div>
+  <div id="white" class="38"></div>
+  <div id="white" class="41"></div>
+  <div id="black" class="42"></div>
+  <div id="white" class="43"></div>
+  <div id="black" class="44"></div>
+  <div id="white" class="45"></div>
+  <div id="black" class="46"></div>
+  <div id="white" class="47"></div>
+  <div id="black" class="48"></div>
+  <div id="black" class="51"></div>
+  <div id="white" class="52"></div>
+  <div id="black" class="53"></div>
+  <div id="white" class="54"></div>
+  <div id="black" class="55"></div>
+  <div id="white" class="56"></div>
+  <div id="black" class="57"></div>
+  <div id="white" class="58"></div>
+  <div id="white" class="61"></div>
+  <div id="black" class="62"></div>
+  <div id="white" class="63"></div>
+  <div id="black" class="64"></div>
+  <div id="white" class="65"></div>
+  <div id="black" class="66"></div>
+  <div id="white" class="67"></div>
+  <div id="black" class="68"></div>
+  <div id="black" class="71"></div>
+  <div id="white" class="72"></div>
+  <div id="black" class="73"></div>
+  <div id="white" class="74"></div>
+  <div id="black" class="75"></div>
+  <div id="white" class="76"></div>
+  <div id="black" class="77"></div>
+  <div id="white" class="78"></div>
+  <div id="white" class="81"></div>
+  <div id="black" class="82"></div>
+  <div id="white" class="83"></div>
+  <div id="black" class="84"></div>
+  <div id="white" class="85"></div>
+  <div id="black" class="86"></div>
+  <div id="white" class="87"></div>
+  <div id="black" class="88"></div> 
+
+<script> 
+	var i1 = []	
+	var i2 = []
+  	var n = 9;
+  	var m = 9;
+  	var chh = 1;
+	var mas = {};
+	var h = 1;
+	for (var i = 1; i < m; i++){ 
+	mas[i] = {};
+	for (var j = 1; j < n; j++){
+	mas[i][j] = 0;
+	}}
+ 
+
+  	for (j = 1; j < 9; j=j+2)
+  	{
+  	mas[2][j] = 2;
+  	mas[6][j] = 1;
+  	mas[8][j] = 1;
+  	}
+  	for (j = 2; j < 9; j=j+2)
+  	{
+  	mas[1][j] = 2;
+  	mas[3][j] = 2;
+  	mas[7][j] = 1;
+	}
+
+	place();
+	getclick(h);
+
+function getclick(h) {
+  	document.addEventListener('click', getpositionwhite1);
+  	function getpositionwhite1(event)
+  	{
+
+  		classString = event.srcElement.className;
+  		for (var i = 0; i < 2; i += 1) {
+    i1[i] = (+ classString.toString().charAt(i)); }
+    event.stopImmediatePropagation();
+    this.removeEventListener('click', getpositionwhite1);
+	}
+	
+
+	document.addEventListener('click', getpositionwhite2);
+  	function getpositionwhite2(event)
+  	{
+  		x = event.srcElement.className;
+  		for (var i = 0; i < 2; i += 1) {
+    i2[i]=(+ x.toString().charAt(i)); }
+    event.stopImmediatePropagation();
+    this.removeEventListener('click', getpositionwhite2);
+	check(h);
+	} 
+}
+
+function checkborder(a,b) {
+	var a;
+	var b;
+	return ((0< a < 9) && (0< b < 9));
+}
+
+function leftneighbor(a,b,c) {
+	var a,b,c
+	switch (c) {
+		case 1:	return[a-1,b-1];
+		case 2: return[a+1,b+1];
+	}
+}
+
+function rightneighbor(a,b,c) {
+	var a,b,c
+	switch (c) {
+		case 1:	return[a-1,b+1];
+		case 2: return[a+1,b-1];
+	}
+}
+
+function leftattack(a,b,c) {
+	var a,b,c
+	switch (c) {
+		case 1:	return[a-2,b-2];
+		case 2: return[a+2,b+2];
+	}
+}
+
+function rightattack(a,b,c) {
+	var a,b,c
+	switch (c) {
+		case 1:	return[a-2,b+2];
+		case 2: return[a+2,b-2];
+	}
+}
+
+
+
+function place() {
+for (var i = 1; i < m; i++) { 
+	for (var j = 1; (j < n); j++) {
+
+			if ((mas[i][j] == 1)) {
+			 var elements = document.getElementsByClassName(String(i)+String(j)), p;
+
+  				for (var p = 0; p < elements.length; p++) {
+    				elements[p].innerHTML = '<img  width="50" height="50" src="http://i.imgur.com/OL1ugL9.jpg">'; 
+    			}
+    		}
+
+    		if ((mas[i][j] == 2)) {
+			 var elements = document.getElementsByClassName(String(i)+String(j)), p;
+
+  				for (var p = 0; p < elements.length; p++) {
+    				elements[p].innerHTML = '<img  width="50" height="50" src="http://i.imgur.com/unJZ3Ha.jpg">'; 
+    			}
+    		}
+    		if ((mas[i][j] == 0)) {
+			 var elements = document.getElementsByClassName(String(i)+String(j)), p;
+
+  				for (var p = 0; p < elements.length; p++) {
+    				elements[p].innerText = ""; 
+    			}
+    		}    		
+    }
+}
+}
+
+function check(h) {
+
+	var ln = leftneighbor(i1[0], i1[1], h)
+	console.log('первый клик   '+ i1[0], i1[1], mas[i1[0]][i1[1]])
+	console.log('второй клик   '+ i2[0], i2[1], mas[i2[0]][i2[1]])
+
+
+
+	console.log(h)
+	if (h==1) {c=2}
+		else {c=1}
+	if ((mas[ln[0]][ln[1]] == 0) && (ln[0] == i2[0]) && (ln[1] == i2[1])) {
+		mas[ln[0]][ln[1]] = h;
+		mas[i1[0]][i1[1]] = 0;
+		console.log('ход   '+ i1[0], i1[1], mas[i1[0]][i1[1]] +'   --->   '+ln[0], ln[1], mas[ln[0]][ln[1]])
+		place();
+		h = c;
+	}
+	var rn = rightneighbor(i1[0], i1[1], h)
+	if ((mas[rn[0]][rn[1]] == 0) && (rn[0] == i2[0]) && (rn[1] == i2[1])) {
+		mas[rn[0]][rn[1]] = h;
+		mas[i1[0]][i1[1]] = 0;
+		console.log('ход   '+ i1[0], i1[1], mas[i1[0]][i1[1]] +'   --->   '+rn[0], rn[1], mas[rn[0]][rn[1]])
+		place();
+		h = c;
+	}
+	var la = leftattack(i1[0], i1[1], h)
+	if ((mas[la[0]][la[1]] == 0) && (la[0] == i2[0]) && (la[1] == i2[1]) && (mas[ln[0]][ln[1]] == c)) {
+		mas[la[0]][la[1]] = h;
+		mas[i1[0]][i1[1]] = 0;
+		mas[ln[0]][ln[1]] = 0;
+		console.log('ход   '+ i1[0], i1[1], mas[i1[0]][i1[1]] +'   --->   '+la[0], la[1], mas[la[0]][la[1]])
+		place();
+		h = c;
+	}
+	var ra = rightattack(i1[0], i1[1], h)
+	if ((mas[ra[0]][ra[1]] == 0) && (ra[0] == i2[0]) && (ra[1] == i2[1]) && (mas[rn[0]][rn[1]] == c)) {
+		mas[ra[0]][ra[1]] = h;
+		mas[i1[0]][i1[1]] = 0;
+		mas[rn[0]][rn[1]] = 0;
+		console.log('ход   '+ i1[0], i1[1], mas[i1[0]][i1[1]] +'   --->   '+ra[0], ra[1], mas[ra[0]][ra[1]])
+		place();
+		h = c;
+	}
+	
+getclick(h);
+}
+
+</script>
+
+</body>
+</html>
