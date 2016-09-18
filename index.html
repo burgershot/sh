@@ -246,7 +246,7 @@ for (var i = 1; i < m; i++) {
 			 var elements = document.getElementsByClassName(String(i)+String(j)), p;
 
   				for (var p = 0; p < elements.length; p++) {
-    				elements[p].innerText = ""; 
+    				elements[p].innerHTML = '<img  width="50" height="50" src="https://gp5.googleusercontent.com/-9a_sL1IKt-c/AAAAAAAAAAI/AAAAAAAAAAA/HLzXyW8Yuc8/s48-c-k-no/photo.jpg?sz=50">';
     			}
     		}    		
     }
@@ -256,48 +256,71 @@ for (var i = 1; i < m; i++) {
 function check(h) {
 
 	var ln = leftneighbor(i1[0], i1[1], h)
+	var rn = rightneighbor(i1[0], i1[1], h)
+	var ra = rightattack(i1[0], i1[1], h)
+	var la = leftattack(i1[0], i1[1], h)
+	var ln2 = leftneighbor(i2[0], i2[1], h)
+	var rn2 = rightneighbor(i2[0], i2[1], h)
+	var ra2 = rightattack(i2[0], i2[1], h)
+	var la2 = leftattack(i2[0], i2[1], h)
 	console.log('первый клик   '+ i1[0], i1[1], mas[i1[0]][i1[1]])
 	console.log('второй клик   '+ i2[0], i2[1], mas[i2[0]][i2[1]])
 
 
 
 	console.log(h)
-	if (h==1) {c=2}
-		else {c=1}
+	if (h==1) {s=2}
+		else {s=1}
+
 	if ((mas[ln[0]][ln[1]] == 0) && (ln[0] == i2[0]) && (ln[1] == i2[1])) {
 		mas[ln[0]][ln[1]] = h;
 		mas[i1[0]][i1[1]] = 0;
 		console.log('ход   '+ i1[0], i1[1], mas[i1[0]][i1[1]] +'   --->   '+ln[0], ln[1], mas[ln[0]][ln[1]])
 		place();
-		h = c;
+		h = s;
 	}
-	var rn = rightneighbor(i1[0], i1[1], h)
+
 	if ((mas[rn[0]][rn[1]] == 0) && (rn[0] == i2[0]) && (rn[1] == i2[1])) {
 		mas[rn[0]][rn[1]] = h;
 		mas[i1[0]][i1[1]] = 0;
 		console.log('ход   '+ i1[0], i1[1], mas[i1[0]][i1[1]] +'   --->   '+rn[0], rn[1], mas[rn[0]][rn[1]])
 		place();
-		h = c;
+		h = s;
 	}
-	var la = leftattack(i1[0], i1[1], h)
-	if ((mas[la[0]][la[1]] == 0) && (la[0] == i2[0]) && (la[1] == i2[1]) && (mas[ln[0]][ln[1]] == c)) {
-		mas[la[0]][la[1]] = h;
-		mas[i1[0]][i1[1]] = 0;
-		mas[ln[0]][ln[1]] = 0;
-		console.log('ход   '+ i1[0], i1[1], mas[i1[0]][i1[1]] +'   --->   '+la[0], la[1], mas[la[0]][la[1]])
-		place();
-		h = c;
-	}
-	var ra = rightattack(i1[0], i1[1], h)
-	if ((mas[ra[0]][ra[1]] == 0) && (ra[0] == i2[0]) && (ra[1] == i2[1]) && (mas[rn[0]][rn[1]] == c)) {
+
+	(function atack()
+{
+	if ((mas[ra[0]][ra[1]] == 0) && (ra[0] == i2[0]) && (ra[1] == i2[1]) && (mas[rn[0]][rn[1]] == s)) {
 		mas[ra[0]][ra[1]] = h;
 		mas[i1[0]][i1[1]] = 0;
 		mas[rn[0]][rn[1]] = 0;
 		console.log('ход   '+ i1[0], i1[1], mas[i1[0]][i1[1]] +'   --->   '+ra[0], ra[1], mas[ra[0]][ra[1]])
 		place();
-		h = c;
+
+		if (((mas[ln2[0]][ln2[1]] == s) && (mas[la2[0]][la2[1]] == 0))  || ((mas[rn2[0]][rn2[1]] == s) && (mas[ra2[0]][ra2[1]] == 0)))
+			{
+				console.log('ЕЩЕ')
+				atack();
+			}
+		else {h = s;}
 	}
-	
+
+	if ((mas[la[0]][la[1]] == 0) && (la[0] == i2[0]) && (la[1] == i2[1]) && (mas[ln[0]][ln[1]] == s)) {
+		mas[la[0]][la[1]] = h;
+		mas[i1[0]][i1[1]] = 0;
+		mas[ln[0]][ln[1]] = 0;
+		console.log('ход   '+ i1[0], i1[1], mas[i1[0]][i1[1]] +'   --->   '+la[0], la[1], mas[la[0]][la[1]])
+		place();
+
+		if (((mas[ln2[0]][ln2[1]] == s) && (mas[la2[0]][la2[1]] == 0))  || ((mas[rn2[0]][rn2[1]] == s) && (mas[ra2[0]][ra2[1]] == 0)))
+			{
+				console.log('ЕЩЕ')
+				atack();
+			}
+		else {h = s;}
+	}
+})()
+
 getclick(h);
 }
 
